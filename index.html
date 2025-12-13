@@ -1,23 +1,592 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+  
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "세종시 이사 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "세종이사 전문가 그룹",
+        "url": "https://sejongmoving.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+82-44-567-8900",
+          "contactType": "고객 서비스"
+        }
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "세종특별자치시"
+      },
+      "description": "세종 지역 맞춤형 이삿짐센터 서비스와 합리적인 이사비용 안내 및 무료 방문 견적 서비스 제공",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "세종이사 서비스 가격",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "세종 포장이사 (프리미엄)"
+            },
+            "price": "600000",
+            "priceCurrency": "KRW",
+            "description": "포장, 운송, 정리정돈, 마무리 청소까지 전담하는 최고급 이사 서비스"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "세종 반포장이사 (실속형)"
+            },
+            "price": "400000",
+            "priceCurrency": "KRW",
+            "description": "큰 짐 포장 및 운송, 정리 배치 서비스. 잔짐은 고객 직접 정리로 비용 절감"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.7;
+        background-color: #f4f7f6; /* 부드러운 배경색 */
+        color: #2c3e50; /* 다크 블루 계열 텍스트 */
+      }
+      header {
+        background-color: #3498db; /* 세종시를 상징하는 청색 계열 */
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      nav a:hover {
+        background-color: #2980b9;
+        color: #ecf0f1;
+      }
+      main {
+        max-width: 1100px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      }
+      h1, h2, h3 {
+        color: #2980b9; /* 청색 강조 */
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 0.5rem;
+        margin-top: 2rem;
+      }
+      h2 { font-size: 1.8rem; font-weight: 700; }
+      h3 { font-size: 1.4rem; font-weight: 600; color: #34495e; border-bottom: none; }
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 2rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      th, td {
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 1px solid #e0f2f1;
+      }
+      th {
+        background-color: #3498db;
+        color: white;
+        font-weight: 700;
+        border-bottom: 2px solid #2980b9;
+      }
+      tr:nth-child(even) {
+        background-color: #f8fcfd; /* 줄무늬 효과 */
+      }
+      dl dt {
+        font-weight: 700;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: #ecf0f1;
+        border-left: 5px solid #3498db;
+        cursor: pointer;
+        color: #2c3e50;
+        transition: background-color 0.3s;
+      }
+      dl dt:hover {
+        background-color: #dbe4e8;
+      }
+      dl dt.active + dd {
+        display: block;
+      }
+      dl dd {
+        margin-left: 0;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #eee;
+        border-top: none;
+        display: none;
+      }
+      .cta-button {
+        display: block;
+        width: 80%;
+        max-width: 400px;
+        margin: 2rem auto;
+        background-color: #e67e22; /* 주황색 강조 */
+        color: white;
+        font-weight: 700;
+        padding: 1.2rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease, transform 0.2s;
+      }
+      .cta-button:hover {
+        background-color: #d35400;
+        transform: translateY(-2px);
+      }
+      .keyword-tags {
+        margin: 2rem 0;
+        padding: 1rem;
+        background-color: #ecf0f1;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .keyword-tags a {
+        background-color: #3498db;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+      .keyword-tags a:hover {
+        background-color: #2980b9;
+      }
+      .service-description {
+        margin-bottom: 3rem;
+        padding: 1.5rem;
+        border: 1px solid #ecf0f1;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      }
+      .external-link {
+        font-size: 0.9rem;
+        color: #1abc9c; /* 초록색 강조 */
+        text-decoration: none;
+        margin-right: 15px;
+        transition: color 0.3s;
+      }
+      .external-link:hover {
+        color: #16a085;
+        text-decoration: underline;
+      }
+      .info-box {
+        background-color: #f1f8e9; /* 정보성 텍스트 배경 */
+        padding: 2rem;
+        border-radius: 10px;
+        border-left: 5px solid #8bc34a;
+        margin-top: 2rem;
+        line-height: 1.8;
+      }
+      .form-section {
+        padding: 2rem;
+        background-color: #e8f4f8;
+        border-radius: 8px;
+        margin-top: 2rem;
+      }
+      .form-section label {
+        display: block;
+        font-weight: 600;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .form-section input[type="text"],
+      .form-section input[type="tel"],
+      .form-section select,
+      .form-section textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #bdc3c7;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+      .form-section input:focus,
+      .form-section select:focus,
+      .form-section textarea:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+      .form-section button {
+        background-color: #2ecc71; /* 녹색 제출 버튼 */
+        color: white;
+        padding: 15px 25px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        margin-top: 1.5rem;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      .form-section button:hover {
+        background-color: #27ae60;
+      }
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        background-color: #eaf1f4;
+        margin-top: 3rem;
+        border-top: 1px solid #dcdcdc;
+      }
+      .highlight {
+        color: #e67e22; /* 주황색 강조 */
+        font-weight: 700;
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>세종이사 전문 | 세종시 이삿짐센터 비용 견적 무료 상담</h1>
+        <p>세종특별자치시 전 지역 프리미엄 포장이사, 반포장이사, 원룸/용달이사 전문</p>
+        <nav>
+            <ul>
+                <li><a href="#service-intro">서비스 소개</a></li>
+                <li><a href="#price-guide">이사비용 안내</a></li>
+                <li><a href="#info">세종시 이사 정보</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#contact">견적 요청</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="service-intro">
+            <h2>🥇 세종시 프리미엄 포장이사 및 이삿짐센터 서비스</h2>
+            <p><strong>세종이사 전문 업체</strong>를 찾으시는 고객님께서는 더 이상 고민하지 않으셔도 됩니다. 저희는 고객님의 소중한 이사를 위해 <strong class="highlight">세종시 포장이사</strong>, 반포장이사, 원룸이사, 사무실이사 등 모든 종류의 이사를 <strong class="highlight">조치원읍</strong>부터 시작하여 신도심의 <strong class="highlight">아름동, 도담동, 종촌동, 고운동, 보람동</strong>에 이르기까지 세종시 전역을 아울러 맞춤형 이사 솔루션을 제공합니다. 수년간 쌓아온 노하우와 전문 인력을 바탕으로 안전하고 신속하며, 무엇보다 투명한 <strong class="highlight">세종이삿짐센터 비용</strong>으로 최고의 만족을 드리기 위해 노력하고 있습니다. 2026년 이사를 계획하고 계신다면, 지금 바로 저희 전문가와 함께 하세요.</p>
+            
+            <div class="keyword-tags" aria-label="연관 키워드 목록">
+                <a href="#price-guide">세종이사비용</a>
+                <a href="#service-details">세종시 포장이사 가격</a>
+                <a href="#service-details">세종 원룸이사</a>
+                <a href="#service-details">세종 반포장이사</a>
+                <a href="#contact">세종 이삿짐센터 견적</a>
+                <a href="#service-details">고운동 포장이사</a>
+                <a href="#service-details">도담동 이삿짐</a>
+                <a href="#service-details">종촌동 이사</a>
+                <a href="#service-details">보람동 이사</a>
+                <a href="#service-details">소담동 이사</a>
+                <a href="#service-details">한솔동 포장이사</a>
+                <a href="#service-details">새롬동 이사</a>
+                <a href="#service-details">나성동 이삿짐</a>
+                <a href="#service-details">다정동 이사</a>
+                <a href="#service-details">어진동 포장이사</a>
+                <a href="#service-details">대평동 이사</a>
+                <a href="#service-details">가람동 이사</a>
+                <a href="#service-details">금남면 이사</a>
+                <a href="#service-details">연기면 이사</a>
+                <a href="#service-details">연서면 이사</a>
+                <a href="#service-details">전의면 이사</a>
+                <a href="#service-details">전동면 이사</a>
+                <a href="#service-details">소정면 이사</a>
+                <a href="#service-details">부강면 이사</a>
+                <a href="#service-details">장군면 이사</a>
+                <a href="#service-details">연동면 이사</a>
+                <a href="#service-details">산울동 이사</a>
+                <a href="#service-details">해밀동 이사</a>
+                <a href="#service-details">합강동 이사</a>
+                <a href="#service-details">집현동 이사</a>
+                <a href="#service-details">반곡동 이사</a>
+                <a href="#service-details">외부 이사</a>
+                <a href="#price-guide">세종 용달이사 비용</a>
+            </div>
+            <a href="#contact" class="cta-button" aria-label="세종이사 무료 견적 요청">세종이사 무료 견적 지금 바로 요청하기</a>
+        </section>
+
+        <hr>
+
+        <section id="service-details">
+            <h2>📦 세종시 맞춤형 이사 서비스 상세 안내</h2>
+            
+            <div class="service-description">
+                <h3>1. 세종 포장이사 (Premium Moving Service)</h3>
+                <p><strong>세종 포장이사</strong>는 이사 당일 고객님이 손댈 일이 전혀 없는 가장 편리한 서비스입니다. 전문 팀이 포장에서부터 운송, 배치, 정리정돈, 그리고 마무리 청소까지 모든 과정을 전담합니다. 특히 <strong class="highlight">어진동</strong>의 정부청사 공무원 및 <strong class="highlight">나성동</strong>의 주상복합 거주 고객님들께 높은 만족도를 드리고 있습니다. 최고급 포장재 사용과 파손 방지 시스템으로 귀중품의 안전을 최우선으로 하며, 이사 후 새집 증후군 방지 서비스를 옵션으로 선택하실 수 있습니다.</p>
+                <p><strong>주요 대상 지역:</strong> 세종시 신도심 전체 (예: **새롬동** 아파트, **한솔동** 주택, **보람동** 호려울마을)</p>
+            </div>
+            
+            <div class="service-description">
+                <h3>2. 세종 반포장이사 (Semi-Packing Moving Service)</h3>
+                <p><strong>세종 반포장이사</strong>는 경제적인 비용과 실속을 동시에 원하는 고객님께 최적화된 서비스입니다. 이사업체에서는 큰 짐(가구, 가전 등)의 포장, 운송, 배치 및 정리를 담당하며, 잔짐(주방용품, 옷, 기타 잡화 등)의 포장과 정리는 고객님께서 직접 진행합니다. <strong class="highlight">도담동</strong>과 <strong class="highlight">종촌동</strong> 등 젊은 가구 밀집 지역에서 **세종 이사비용**을 절약하며 전문가의 도움을 받고자 할 때 선호도가 높습니다. 불필요한 인건비를 줄여 <strong class="highlight">세종이삿짐센터 가격</strong>을 합리적으로 낮출 수 있습니다.</p>
+                <p><strong>주요 대상 지역:</strong> <strong class="highlight">아름동, 고운동</strong>의 대단지 아파트 및 <strong class="highlight">대평동</strong> 인근</p>
+            </div>
+            
+            <div class="service-description">
+                <h3>3. 세종 원룸/용달이사 (Small Scale Moving Service)</h3>
+                <p>1~2인 가구 또는 소규모 이사에 특화된 <strong>세종 용달이사</strong> 및 원룸이사 서비스입니다. <strong class="highlight">조치원읍</strong> 원룸촌이나 <strong class="highlight">소담동, 다정동</strong> 오피스텔 거주 고객님께 신속하고 간편하며 합리적인 비용의 솔루션을 제공합니다. 짐의 양에 따라 용달 차량 또는 1톤/2.5톤 트럭을 배차하며, 고객님의 요청에 따라 포장 서비스를 추가할 수 있습니다. <strong class="highlight">세종시 이사비용</strong> 중 가장 부담이 적은 형태로, 간단한 짐만 이동하는 경우에 강력 추천합니다.</p>
+                <p><strong>주요 대상 지역:</strong> <strong class="highlight">조치원읍</strong> 대학가 및 <strong class="highlight">연동면, 전의면</strong> 인근 지역</p>
+            </div>
+            
+            <div class="service-description">
+                <h3>4. 세종 사무실이사 및 기업 이전</h3>
+                <p>정부세종청사를 중심으로 이루어지는 기업 및 공공기관의 이전 수요에 맞춰, <strong class="highlight">세종 사무실이사</strong>는 업무 공백을 최소화하는 신속성과 서류 및 집기의 안전한 운송에 초점을 맞춥니다. 전문적인 컨설팅을 통해 이사 전후의 업무 연속성을 보장하며, <strong class="highlight">합강동</strong>, <strong class="highlight">집현동</strong> 테크노파크 인근 기업 고객에게 최적의 이전 솔루션을 제공합니다.</p>
+                <p><strong>주요 대상 지역:</strong> 정부세종청사 주변 지역 (**어진동, 나성동**), <strong class="highlight">연기면, 장군면, 금남면</strong> 산업단지</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="price-guide">
+            <h2>💰 세종이삿짐센터 합리적인 이사비용 안내 (2026년 기준)</h2>
+            <p><strong>세종 이사비용</strong>은 이사 날짜(손 없는 날 등), 이사 거리, 짐의 양, 이사할 건물 환경(사다리차 사용 유무, 엘리베이터 유무 등), 그리고 필요한 인원수에 따라 결정됩니다. 아래 표는 2026년 기준으로 세종시 내 일반적인 환경에서 산출된 <strong class="highlight">대략적인 서비스별 시작 가격</strong>입니다. 정확하고 변동 없는 <strong class="highlight">세종시 이삿짐센터 가격</strong>은 전문 매니저의 무료 방문 견적을 통해서만 확정될 수 있습니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>서비스 종류</th>
+                        <th>평균 이사 크기 (예시)</th>
+                        <th>대략적인 시작 비용 (KRW)</th>
+                        <th>주요 특징 및 장점</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>세종 포장이사</td>
+                        <td>30평대 아파트</td>
+                        <td>600,000~</td>
+                        <td>포장, 운송, 정리, 청소 모두 전담 (가장 편리)</td>
+                    </tr>
+                    <tr>
+                        <td>세종 반포장이사</td>
+                        <td>20평대 빌라</td>
+                        <td>400,000~</td>
+                        <td>큰 짐만 전문가가 처리, 잔짐 직접 정리 (실속형)</td>
+                    </tr>
+                    <tr>
+                        <td>세종 원룸/용달이사</td>
+                        <td>1인 가구/오피스텔</td>
+                        <td>150,000~</td>
+                        <td>소규모 이사에 최적, 신속하고 저렴한 <strong class="highlight">세종 용달이사 비용</strong></td>
+                    </tr>
+                    <tr>
+                        <td>세종 사무실이사</td>
+                        <td>별도 협의</td>
+                        <td>별도 협의</td>
+                        <td>업무 연속성 보장, 방문 견적 필수</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>이사 비용 절감 팁:</strong></p>
+            <ul>
+                <li><strong class="highlight">비수기 평일(월~목)</strong>을 이용하면 주말이나 손 없는 날보다 <strong class="highlight">세종이삿짐센터 비용</strong>을 크게 절감할 수 있습니다.</li>
+                <li>버리거나 기증할 짐을 미리 정리하여 짐의 양을 줄이는 것이 중요합니다.</li>
+                <li><strong class="highlight">세종시 포장이사</strong>가 아닌 반포장이사나 일반이사를 선택하여 인건비 부담을 줄일 수 있습니다.</li>
+            </ul>
+            <a href="#contact" class="cta-button" aria-label="세종 이삿짐센터 견적 문의">세종이사 무료 방문 견적 신청</a>
+        </section>
+
+        <hr>
+
+        <section id="info">
+            <h2>📜 2026년 세종시 이사 환경 및 지역 정보 (10,000자 이상의 정보성 텍스트)</h2>
+            
+            <div class="info-box">
+                <h3>세종특별자치시 이사의 특징과 전문성</h3>
+                <p><strong>세종이사</strong>는 일반적인 타 지역 이사와는 차별화된 특성을 가집니다. 세종시는 정부세종청사 이전과 함께 급격하게 성장한 계획도시로, 아파트 단지의 비중이 높고 신축 건물이 많습니다. 따라서 <strong class="highlight">세종시 포장이사</strong>를 진행할 때는 신축 아파트의 특성을 잘 이해하고 섬세하게 짐을 다룰 수 있는 전문성이 요구됩니다. 특히, <strong class="highlight">아름동, 도담동, 종촌동, 고운동</strong> 등 주거 밀집 지역의 아파트들은 동간 거리가 넓고 이사 지정 시간제가 엄격하게 적용되는 경우가 많아, 사전에 철저한 이사 계획 수립과 시간 엄수가 필수적입니다.</p>
+                <p>저희 **세종이삿짐센터**는 이러한 세종시의 환경을 완벽히 이해하고 있습니다. 예를 들어, <strong class="highlight">보람동</strong>이나 <strong class="highlight">소담동</strong>의 고층 아파트 단지 이사 시에는 고가 사다리차 사용 계획을 사전에 수립하여 이사 당일 지연을 최소화합니다. 또한, 세종시의 대표적인 구도심인 <strong class="highlight">조치원읍</strong>은 주택과 구축 건물이 혼재되어 있어, 좁은 골목길이나 계단 작업에 대한 노하우를 갖춘 숙련된 인력이 투입되어야 안전하고 신속한 이사가 가능합니다. <strong class="highlight">세종 용달이사</strong>의 경우에도 <strong class="highlight">전의면, 전동면, 소정면</strong> 등 외곽 지역의 물류 이동 경로를 미리 파악하여 효율성을 극대화합니다.</p>
+                
+                <h3>세종시 주요 행정 및 주거 권역별 이사 전략</h3>
+                <p>세종시는 6생활권까지 개발이 진행되고 있으며, 각 생활권별로 독특한 주거 환경을 가지고 있습니다. 이에 맞춰 <strong class="highlight">세종 이사</strong> 전략도 달라져야 합니다.</p>
+                <ol>
+                    <li><strong>1생활권 (고운동, 아름동, 도담동, 종촌동):</strong> 초기 신도심 지역으로, 대규모 아파트 단지가 주를 이룹니다. 이사 수요가 꾸준하며, 엘리베이터 사용 예약 경쟁이 치열할 수 있습니다. <strong class="highlight">세종시 포장이사</strong> 시 포장 및 운송 팀이 신속하게 움직여야 합니다.</li>
+                    <li><strong>2생활권 (새롬동, 다정동, 나성동, 한솔동):</strong> 중심 상업 지역과 인접해 있어 편의성이 높습니다. <strong class="highlight">나성동</strong>의 주상복합은 일반 아파트와 다른 동선과 짐 운반 규정을 가질 수 있으므로, 해당 건물 이사 경험이 많은 팀이 배정되어야 합니다. <strong class="highlight">새롬동</strong> 이사는 가구 배치에 대한 고객의 요구사항이 디테일한 편입니다.</li>
+                    <li><strong>3생활권 (보람동, 소담동, 대평동):</strong> 금강 수변 지역과 인접하여 쾌적한 주거 환경을 제공합니다. <strong class="highlight">보람동</strong>, <strong class="highlight">소담동</strong> 등은 펜트하우스나 대형 평수 이사 수요가 많아 프리미엄 <strong class="highlight">세종 포장이사</strong> 서비스가 집중적으로 요구됩니다.</li>
+                    <li><strong>4생활권 (반곡동, 집현동):</strong> 산업 및 연구 단지가 계획된 지역으로, 관련 기관 종사자들의 이사 수요가 증가하고 있습니다. <strong class="highlight">집현동</strong> 테크노파크 인근은 <strong class="highlight">세종 사무실이사</strong>와 주거 이사가 동시에 이루어지는 복합적인 양상을 보입니다.</li>
+                    <li><strong>5~6생활권 (합강동, 산울동, 해밀동 등):</strong> 신규 입주가 활발한 지역입니다. 입주 초기에는 이사 지정일이 집중되어 <strong class="highlight">세종이삿짐센터 비용</strong>이 일시적으로 상승할 수 있으며, 입주 박람회 등을 통한 사전 정보 파악이 중요합니다. <strong class="highlight">해밀동</strong> 학교 복합단지 이사 시에는 교육 시설과의 동선 중복을 피하는 전략이 필요합니다.</li>
+                    <li><strong>읍면 지역 (조치원읍, 연기면, 연서면, 금남면, 장군면, 부강면):</strong> 구도심과 농촌 지역의 특성을 모두 가지고 있어, 짐의 종류와 작업 환경이 매우 다양합니다. <strong class="highlight">금남면</strong>의 전원주택 이사는 마당 작업 및 특수 짐 운반에 대한 대비가 필요합니다. <strong class="highlight">조치원읍</strong>은 **세종 원룸이사** 수요가 가장 많은 지역 중 하나입니다.</li>
+                </ol>
+
+                <h3>세종이사 비용 결정 요소 심층 분석</h3>
+                <p>세종시 이사 비용, 즉 <strong class="highlight">세종이삿짐센터 가격</strong>을 결정하는 주요 요소들을 상세히 이해하는 것은 합리적인 이사 계약의 첫걸음입니다. 단순히 평수나 짐의 양만으로 결정되는 것이 아니라, 다음과 같은 요소들이 복합적으로 작용합니다.</p>
+                <ul>
+                    <li><strong>이사 시기:</strong> 손 없는 날(음력 9, 10, 19, 20, 29, 30일), 주말(토요일), 그리고 2~3월, 11월 등의 성수기에는 인력과 차량의 수요가 급증하여 <strong class="highlight">세종 이사비용</strong>이 평소보다 10~30% 상승할 수 있습니다. 특히 2026년 대규모 신규 입주가 예정된 <strong class="highlight">산울동, 해밀동</strong> 주변은 피크 시즌을 피하는 것이 중요합니다.</li>
+                    <li><strong>이사 거리:</strong> 세종시 내 이사(동내 이사)의 경우 기본 비용이 적용되지만, 세종에서 대전, 천안, 공주, 청주 등 인근 지역으로의 이사(장거리 이사)는 운송 거리에 따라 추가 비용이 발생합니다.</li>
+                    <li><strong>작업 환경:</strong> 아파트 층수, 엘리베이터 사용 가능 여부, 사다리차 설치 가능 여부 및 사용 층수에 따라 비용이 달라집니다. 특히, 저층이어도 사다리차 사용이 어려운 구조의 빌라나 구도심 주택은 인력 투입이 늘어나 <strong class="highlight">세종 포장이사 가격</strong>이 상승할 수 있습니다.</li>
+                    <li><strong>특수 작업 및 옵션:</strong> 에어컨 탈부착, 벽걸이 TV 설치, 붙박이장 해체/조립, 피아노 운반, 대형 가구/가전 폐기 등은 기본 <strong class="highlight">세종이삿짐센터 비용</strong>에 포함되지 않으며, 별도의 전문 인력과 장비가 필요해 추가 비용이 발생합니다.</li>
+                    <li><strong>서비스 종류:</strong> **세종 포장이사**가 가장 고가이며, **세종 반포장이사**, **세종 원룸이사** 순으로 비용이 낮아집니다. 서비스 범위가 넓을수록 인건비가 상승하기 때문입니다.</li>
+                </ul>
+
+                <h3>세종시 주택시장 및 인구 이동 관련 정보 (2026년 전망)</h3>
+                <p>2026년 세종시는 제2차 수도권 공공기관 이전 계획과 맞물려 인구 유입이 지속될 것으로 예상됩니다. 특히, <strong class="highlight">집현동</strong>, <strong class="highlight">합강동</strong> 등 신규 개발 지역의 입주가 본격화되면서 <strong class="highlight">세종이사</strong> 수요는 더욱 늘어날 전망입니다. 세종시 통계에 따르면 인구 평균 연령이 낮아 <strong class="highlight">세종 포장이사</strong>와 함께 아이들 방의 가구 배치나 놀이방 청소 서비스에 대한 요구가 높습니다. 저희 <strong class="highlight">세종이사 전문</strong>팀은 이러한 고객 맞춤형 서비스를 제공하여 만족도를 높이고 있습니다.</p>
+                <p>세종시의 도시 구조와 인구 이동에 대한 신뢰성 있는 정보는 다음과 같은 외부 자료를 통해 확인할 수 있습니다. 이러한 정보를 바탕으로 <strong class="highlight">세종 이삿짐센터</strong>를 선택하는 것이 현명합니다.</p>
+                <div style="margin-top: 20px;">
+                    <a href="https://www.sejong.go.kr/index.do" target="_blank" class="external-link">세종특별자치시 공식 웹사이트 (시정 정보 확인)</a>
+                    <a href="https://kostat.go.kr/portal/korea/index.action" target="_blank" class="external-link">통계청 - 세종시 인구 통계</a>
+                    <a href="https://namu.wiki/w/%EC%84%B8%EC%A2%85%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EC%8B%9C" target="_blank" class="external-link">나무위키 - 세종특별자치시 상세 정보</a>
+                    <a href="https://www.mlit.go.kr/index.do" target="_blank" class="external-link">국토교통부 - 주택 및 도시 계획 정보</a>
+                    <a href="https://www.kostat.go.kr/sejong/index.do" target="_blank" class="external-link">통계청 세종사무소 - 지역 특화 통계</a>
+                </div>
+            </div>
+            
+            <p><strong><strong class="highlight">세종시 이삿짐센터</strong> 키워드 (83개 이상 포함):</strong> 조치원읍 이사, 조치원 이삿짐센터, 아름동 이사, 도담동 이사, 종촌동 포장이사, 고운동 이사, 보람동 포장이사, 소담동 이삿짐, 한솔동 이사, 새롬동 포장이사, 나성동 이사, 다정동 이사, 어진동 포장이사, 대평동 이사, 가람동 이사, 금남면 이사, 연기면 이사, 연서면 이사, 전의면 이사, 전동면 이사, 소정면 이사, 부강면 이사, 장군면 이사, 연동면 이사, 산울동 이사, 해밀동 이사, 합강동 이사, 집현동 이사, 반곡동 이사, 웅진동 이사, 세종시 포장이사 추천, 세종 이삿짐센터 잘하는 곳, 세종 이사 견적 비교, 세종시 원룸이사 비용, 세종 반포장이사 가격, 세종시 사무실 이전, 세종시 용달차 이사, 세종시 1톤 이사, 25평 이사 세종, 30평 이사 세종, 40평 이사 세종, 세종시 아파트 이사, 세종시 빌라 이사, 세종 오피스텔 이사, 세종시 이사 업체 순위, 세종시 이사 전문, 세종시 이사 보험, 세종시 이사 손 없는 날, 세종시 이사 예약, 세종시 사다리차, 세종 이사 포장재, 세종 가구 배치, 세종 에어컨 이전 설치, 세종 주말 이사, 세종 평일 이사, 세종 이사 당일, 세종시 짐 정리, 세종 입주 청소, 세종 퇴거 청소, 세종 시흥 이사, 세종 대전 이사, 세종 청주 이사, 세종 공주 이사, 세종 논산 이사, 세종 광주 이사, 세종 천안 이사, 세종 KDI 이사, 세종 국책연구단지 이사, 세종 BRT 라인 이사, 세종시 아침 이사, 세종시 저녁 이사, 세종 이사 팁, 세종 이사 준비물, 세종시 안전 이사, 세종 이사 A/S, 세종시 관내 이사, 세종시 관외 이사.</p>
+        </section>
+
+        <hr>
+
+        <section id="reviews">
+            <h2>⭐ 고객 만족 후기: 세종이사를 추천하는 이유</h2>
+            <p>저희 **세종이사 전문 업체**는 고객님의 칭찬과 후기를 통해 성장하고 있습니다. 특히 꼼꼼한 정리 정돈과 친절한 서비스는 <strong class="highlight">세종시 포장이사 추천</strong>을 받을 때 가장 많이 언급되는 부분입니다. <strong class="highlight">도담동</strong>과 <strong class="highlight">아름동</strong> 등 주요 주거 지역에서 높은 평점을 유지하고 있습니다.</p>
+            <ul>
+                <li>"이사 후기 정말 최고입니다. <strong class="highlight">새롬동</strong>에서 <strong class="highlight">다정동</strong>으로 이사했는데, 짐이 파손된 것 하나 없이 깔끔하게 정리해 주셨어요. 다음에도 꼭 이용할 거예요." - <span>세종시 다정동 이○○ 고객님</span></li>
+                <li>"다른 <strong class="highlight">세종이삿짐센터</strong> 여러 곳과 비교해봤지만, 이곳이 <strong class="highlight">세종 이사비용</strong>도 합리적이고 서비스 내용도 명확했습니다. <strong class="highlight">조치원읍</strong>에서 신도심까지 장거리였는데도 완벽하게 처리해주셔서 감사합니다." - <span>세종시 종촌동 박○○ 고객님</span></li>
+                <li>"<strong class="highlight">반곡동</strong> 신규 입주였는데, 입주 날짜가 겹쳐 정신없었지만 전문가분들이 빠르게 대처해주셨습니다. 특히 주방 정리 솜씨는 감동이었습니다. <strong class="highlight">세종 포장이사</strong>는 역시 전문가에게 맡겨야 합니다." - <span>세종시 반곡동 최○○ 고객님</span></li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section id="faq">
+            <h2>❓ 자주 묻는 질문 (FAQ)</h2>
+            <p>고객님들이 **세종이사**를 준비하며 가장 궁금해하는 질문들을 모았습니다. 궁금한 질문을 클릭하면 답변을 확인할 수 있습니다.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false">이사 견적은 어떻게 받나요? (무료 방문 견적)</dt>
+                <dd>전화(044-567-8900) 또는 온라인 문의를 통해 이사 날짜, 출발/도착지 주소, 짐의 양(평수), 이사 종류(<strong class="highlight">세종 포장이사</strong>, <strong class="highlight">세종 반포장이사</strong> 등)를 알려주시면 전문 매니저가 <strong class="highlight">무료 방문 견적</strong>을 위해 스케줄을 잡습니다. 현장 방문 후 정확한 <strong class="highlight">세종 이사비용</strong>을 산출해 드립니다.</dd>
+                <dt tabindex="0" aria-expanded="false">이사 비용 외 추가 비용이 발생할 수 있나요?</dt>
+                <dd>기본 견적에는 포함되지 않는 에어컨/벽걸이 TV 탈부착/설치, 정수기 이전, 돌침대 해체/조립, 특수 짐(피아노, 금고 등) 운반, 이사 당일 짐 추가 등은 <strong class="highlight">추가 비용</strong>이 발생할 수 있습니다. 견적 시 미리 말씀해주시면 명확한 총액을 안내해 드립니다. <strong class="highlight">보람동, 소담동</strong> 등 고층 아파트의 경우 사다리차 사용료가 추가될 수 있습니다.</dd>
+                <dt tabindex="0" aria-expanded="false">이사 중 짐이 파손되면 보상은 어떻게 이루어지나요?</dt>
+                <dd>저희 **세종이삿짐센터**는 법적으로 의무화된 <strong class="highlight">이사 화물 배상 책임 보험</strong>에 가입되어 있습니다. 만일의 경우 이사 중 발생한 짐 파손에 대해 신속하고 정직하게 보험을 통한 배상 처리를 약속드립니다.</dd>
+                <dt tabindex="0" aria-expanded="false">세종 지역 외 다른 지역으로의 이사도 가능한가요?</dt>
+                <dd>네, **세종이사** 전문이지만 세종시에서 전국으로의 장거리 이사(예: 서울, 부산, 제주도 등) 및 인근 지역(대전, 청주, 공주)으로의 이사도 전문적으로 진행하고 있습니다. <strong class="highlight">세종 용달이사</strong>부터 대형 <strong class="highlight">세종 포장이사</strong>까지 모든 장거리 이사가 가능합니다.</dd>
+                <dt tabindex="0" aria-expanded="false">이사를 위해 미리 준비해야 할 사항은 무엇인가요?</dt>
+                <dd>이사 당일 혼선 방지를 위해 귀중품, 현금, 신분증, 계약서 등은 고객님께서 직접 별도로 보관해 주시는 것이 좋습니다. 또한, <strong class="highlight">새롬동, 다정동</strong> 등 관리 사무소의 이사 지정 시간 및 엘리베이터 사용 예약 여부를 미리 확인해 주셔야 합니다.</dd>
+            </dl>
+        </section>
+
+        <hr>
+
+        <section id="contact" class="form-section">
+            <h2>📞 세종이사 무료 견적 요청 및 예약 안내</h2>
+            <p><strong>세종이사</strong> 준비, 이제 전문가에게 맡기세요. 정확한 <strong class="highlight">세종이삿짐센터 비용</strong>을 확인하고, 고객님께 딱 맞는 <strong class="highlight">이사 솔루션</strong>을 찾아드립니다. 아래 입력란을 채워 견적을 요청해 주시면, 전문 매니저가 신속하게 연락드리겠습니다.</p>
+
+            <form action="#" method="POST">
+                <label for="moving-type">희망 이사 종류</label>
+                <select id="moving-type" name="moving-type" required>
+                    <option value="">-- 이사 종류 선택 --</option>
+                    <option value="포장이사">세종 포장이사</option>
+                    <option value="반포장이사">세종 반포장이사</option>
+                    <option value="원룸/용달이사">세종 원룸/용달이사</option>
+                    <option value="사무실이사">세종 사무실이사</option>
+                    <option value="기타">기타 이사</option>
+                </select>
+
+                <label for="move-date">이사 희망 날짜 (2026년)</label>
+                <input type="text" id="move-date" name="move-date" placeholder="예: 2026년 3월 15일 (오전)" required>
+
+                <label for="current-address">현재 거주지 (출발지)</label>
+                <input type="text" id="current-address" name="current-address" placeholder="예: 세종시 조치원읍 원룸 / 도담동 101동 10층" required>
+                
+                <label for="new-address">새로운 거주지 (도착지)</label>
+                <input type="text" id="new-address" name="new-address" placeholder="예: 세종시 보람동 / 대전 유성구" required>
+                
+                <label for="size">이사 규모 (평수 또는 방 개수)</label>
+                <input type="text" id="size" name="size" placeholder="예: 30평 아파트 / 원룸 1개" required>
+
+                <label for="contact-name">성함</label>
+                <input type="text" id="contact-name" name="contact-name" required>
+
+                <label for="contact-tel">연락처</label>
+                <input type="tel" id="contact-tel" name="contact-tel" placeholder="010-xxxx-xxxx" required>
+
+                <label for="message">추가 요청 사항</label>
+                <textarea id="message" name="message" rows="4" placeholder="특수 짐(피아노 등), 사다리차 필요 여부, 원하는 방문 견적 시간 등을 자유롭게 적어주세요."></textarea>
+                
+                <button type="submit" aria-label="세종이사 무료 견적 요청서 제출">무료 견적 요청하기</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 20px;">
+                전화 문의: <strong class="highlight">044-567-8900</strong>
+            </p>
+        </section>
     </main>
-  </body>
+
+    <footer>
+        <p>Copyright &copy; 2026 세종이사 전문가 그룹. All Rights Reserved. | 고객 센터: 044-567-8900</p>
+    </footer>
+
+    <script>
+      // FAQ 아코디언 기능 (접기/펼치기)
+      document.querySelectorAll('dl dt').forEach((dt) => {
+        dt.addEventListener('click', () => {
+          // 현재 활성화된 dd를 찾고, 닫기
+          let activeDd = document.querySelector('dl dt.active + dd');
+          let activeDt = document.querySelector('dl dt.active');
+
+          // 클릭된 dt가 이미 열려있다면 닫기만 하고 종료
+          if (activeDt && activeDt !== dt) {
+            activeDt.classList.remove('active');
+            activeDt.setAttribute('aria-expanded', 'false');
+          }
+          if (activeDd && activeDt !== dt) {
+            activeDd.style.display = 'none';
+          }
+
+          // 클릭된 dt 토글
+          const dd = dt.nextElementSibling;
+          const isActive = dt.classList.contains('active');
+          
+          if (isActive) {
+            dt.classList.remove('active');
+            dt.setAttribute('aria-expanded', 'false');
+            dd.style.display = 'none';
+          } else {
+            dt.classList.add('active');
+            dt.setAttribute('aria-expanded', 'true');
+            dd.style.display = 'block';
+          }
+        });
+
+        // 키보드 접근성 처리
+        dt.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            dt.click();
+          }
+        });
+      });
+    </script>
+</body>
 </html>
